@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "bootstrap": "^5.3.8",
+    "jspdf": "^4.2.1",
+    "next": "latest",
+    "react": "latest",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "latest",
+    "react-icons": "^5.6.0",
+    "react-toastify": "^11.1.0"
+  }
+}
