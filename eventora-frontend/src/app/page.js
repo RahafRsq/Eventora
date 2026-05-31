@@ -52,7 +52,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchPackages() {
       try {
-        const response = await fetch("http://localhost:5000/api/packages");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/packages`);
         const data = await response.json();
 
         setPackages(data.packages || []);
@@ -357,3 +357,6 @@ export default function Home() {
     </main>
   );
 }
+
+
+

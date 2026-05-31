@@ -54,8 +54,8 @@ export default function LoginPage() {
         setIsSubmitting(true);
 
         const url = isLogin
-            ? "http://localhost:5000/api/auth/login"
-            : "http://localhost:5000/api/auth/register";
+            ? "${process.env.NEXT_PUBLIC_API_URL}/api/auth/login"
+            : "${process.env.NEXT_PUBLIC_API_URL}/api/auth/register";
 
         const bodyData = isLogin
             ? { email: formData.email, password: formData.password }

@@ -55,7 +55,7 @@ export default function MyBookingsPage() {
     async function fetchBookings(token) {
         try {
             const response = await fetch(
-                "http://localhost:5000/api/bookings/my-bookings",
+                "${process.env.NEXT_PUBLIC_API_URL}/api/bookings/my-bookings",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -129,7 +129,7 @@ export default function MyBookingsPage() {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:5000/api/bookings/edit/${editingBooking._id}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/edit/${editingBooking._id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -174,7 +174,7 @@ export default function MyBookingsPage() {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:5000/api/bookings/${selectedBookingId}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/${selectedBookingId}`,
                 {
                     method: "PUT",
                     headers: {
