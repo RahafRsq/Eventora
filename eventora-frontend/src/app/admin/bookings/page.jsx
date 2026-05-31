@@ -50,7 +50,7 @@ export default function AdminBookingsPage() {
     async function fetchBookings() {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/bookings", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/bookings`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await response.json();
@@ -64,7 +64,7 @@ export default function AdminBookingsPage() {
     async function updateStatus(id, status) {
         try {
             const token = localStorage.getItem("token");
-            await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/api/bookings/${id}`, {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/bookings/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
