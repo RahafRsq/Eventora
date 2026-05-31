@@ -10,6 +10,9 @@ import AOSProvider from "./components/AOSProvider";
 export const metadata = {
   title: "Eventora",
   description: "Elegant event packages booking platform",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {
