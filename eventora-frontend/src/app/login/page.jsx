@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { FaRegGem } from "react-icons/fa";
 
@@ -9,7 +9,7 @@ export default function LoginPage() {
     const [isLogin, setIsLogin] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
-    const searchParams = useSearchParams();
+
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -19,13 +19,7 @@ export default function LoginPage() {
     });
 
     const [error, setError] = useState("");
-    useEffect(() => {
-        const mode = searchParams.get("mode");
 
-        if (mode === "register") {
-            setIsLogin(false);
-        }
-    }, [searchParams]);
     function handleChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
         setError("");
