@@ -174,7 +174,7 @@ export default function MyBookingsPage() {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/${selectedBookingId}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/cancel/${selectedBookingId}`,
                 {
                     method: "PUT",
                     headers: {
