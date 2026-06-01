@@ -55,7 +55,7 @@ export default function MyBookingsPage() {
     async function fetchBookings(token) {
         try {
             const response = await fetch(
-                "${process.env.NEXT_PUBLIC_API_URL}/api/bookings/my-bookings",
+                `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/my-bookings`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

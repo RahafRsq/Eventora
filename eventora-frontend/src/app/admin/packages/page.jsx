@@ -47,7 +47,7 @@ export default function AdminPackagesPage() {
     }, [router]);
 
     async function fetchPackages() {
-        const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/packages");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/packages`);
         const data = await response.json();
 
         setPackages(data);
@@ -73,7 +73,7 @@ export default function AdminPackagesPage() {
         };
 
         if (editingId) {
-            await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/api/packages/${editingId}`, {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/packages/${editingId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export default function AdminPackagesPage() {
 
             setEditingId(null);
         } else {
-            await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/packages", {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/packages`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -131,7 +131,7 @@ export default function BookingPage() {
             };
 
             const response = await fetch(
-                "${process.env.NEXT_PUBLIC_API_URL}/api/bookings",
+                `${process.env.NEXT_PUBLIC_API_URL}/api/bookings`,
                 {
                     method: "POST",
 
