@@ -10,16 +10,16 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async ({ to, subject, html }) => {
     try {
-        await transporter.sendMail({
+        const info = await transporter.sendMail({
             from: `"Eventora" <${process.env.EMAIL_USER}>`,
             to,
             subject,
             html,
         });
 
-        console.log("Email sent successfully");
+        console.log("Email sent successfully:", info.messageId);
     } catch (error) {
-        console.error("Email sending failed:", error.message);
+        console.error("Email sending failed:", error);
     }
 };
 

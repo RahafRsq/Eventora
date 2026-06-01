@@ -87,7 +87,7 @@ export default function Home() {
       JSON.stringify(packageWithEventPrice)
     );
 
-    window.location.href = "/booking";
+    router.push("/booking");
   }
 
   function scrollToSection(sectionId) {

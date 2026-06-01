@@ -3,11 +3,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
-const {
-    sendEmail,
-} = require("../utils/emailService");
+const { sendEmail } = require("../utils/emailService");
 
-// Generate JWT
 const generateToken = (id, role) => {
     return jwt.sign(
         {
@@ -21,7 +18,6 @@ const generateToken = (id, role) => {
     );
 };
 
-// Register User
 const registerUser = async (req, res) => {
     try {
         const { fullName, email, password } = req.body;
@@ -47,15 +43,11 @@ const registerUser = async (req, res) => {
         if (password.length < 6) {
             return res.status(400).json({
                 success: false,
-                message:
-                    "Password must be at least 6 characters",
+                message: "Password must be at least 6 characters",
             });
         }
 
-        const hashedPassword = await bcrypt.hash(
-            password,
-            10
-        );
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({
             fullName,
@@ -63,44 +55,25 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
         });
 
-        // Welcome Email
-        await sendEmail({
+        sendEmail({
             to: user.email,
             subject: "Welcome to Eventora 💎",
             html: `
-        <div style="font-family: Arial; padding: 20px;">
-          <h1 style="color:#0f5f63;">
-            Welcome to Eventora 🎉
-          </h1>
-
-          <p>Hello ${user.fullName},</p>
-
-          <p>
-            Thank you for joining Eventora.
-          </p>
-
-          <p>
-            You can now explore packages and book
-            your perfect event easily.
-          </p>
-
-          <p>
-            We are excited to have you with us 💎
-          </p>
-
-          <hr />
-
-          <p>
-            Eventora Team
-          </p>
-        </div>
-      `,
+                <div style="font-family: Arial; padding: 20px;">
+                    <h1 style="color:#0f5f63;">Welcome to Eventora 🎉</h1>
+                    <p>Hello ${user.fullName},</p>
+                    <p>Thank you for joining Eventora.</p>
+                    <p>You can now explore packages and book your perfect event easily.</p>
+                    <p>We are excited to have you with us 💎</p>
+                    <hr />
+                    <p>Eventora Team</p>
+                </div>
+            `,
+        }).catch((error) => {
+            console.error("Welcome Email Error:", error.message);
         });
 
-        const token = generateToken(
-            user._id,
-            user.role
-        );
+        const token = generateToken(user._id, user.role);
 
         res.status(201).json({
             success: true,
@@ -118,7 +91,6 @@ const registerUser = async (req, res) => {
     }
 };
 
-// Login User
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -126,8 +98,7 @@ const loginUser = async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message:
-                    "Please enter email and password",
+                message: "Please enter email and password",
             });
         }
 
@@ -142,10 +113,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const isMatch = await bcrypt.compare(
-            password,
-            user.password
-        );
+        const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
             return res.status(401).json({
@@ -154,10 +122,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const token = generateToken(
-            user._id,
-            user.role
-        );
+        const token = generateToken(user._id, user.role);
 
         res.status(200).json({
             success: true,
@@ -175,7 +140,6 @@ const loginUser = async (req, res) => {
     }
 };
 
-// Forgot Password
 const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
@@ -191,81 +155,56 @@ const forgotPassword = async (req, res) => {
             });
         }
 
-        // Generate reset token
-        const resetToken = crypto
-            .randomBytes(32)
-            .toString("hex");
+        const resetToken = crypto.randomBytes(32).toString("hex");
 
         user.resetPasswordToken = resetToken;
-
-        user.resetPasswordExpire =
-            Date.now() + 15 * 60 * 1000;
+        user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
 
         await user.save();
 
-        const resetURL = `${process.env.CLIENT_URL
-            }/reset-password/${resetToken}`;
+        const resetURL = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
 
-        // Send reset email
-        await sendEmail({
+        sendEmail({
             to: user.email,
-            subject:
-                "Reset Your Eventora Password 💎",
+            subject: "Reset Your Eventora Password 💎",
             html: `
-        <div style="font-family: Arial; padding: 20px;">
-          <h1 style="color:#0f5f63;">
-            Password Reset Request 🔐
-          </h1>
+                <div style="font-family: Arial; padding: 20px;">
+                    <h1 style="color:#0f5f63;">Password Reset Request 🔐</h1>
+                    <p>Hello ${user.fullName},</p>
+                    <p>We received a request to reset your password.</p>
+                    <p>Click the button below to create a new password:</p>
 
-          <p>Hello ${user.fullName},</p>
+                    <a
+                        href="${resetURL}"
+                        style="
+                            display:inline-block;
+                            margin-top:20px;
+                            padding:14px 28px;
+                            background:#0f766e;
+                            color:white;
+                            text-decoration:none;
+                            border-radius:999px;
+                            font-weight:bold;
+                        "
+                    >
+                        Reset Password
+                    </a>
 
-          <p>
-            We received a request to reset your password.
-          </p>
-
-          <p>
-            Click the button below to create a new password:
-          </p>
-
-          <a
-            href="${resetURL}"
-            style="
-              display:inline-block;
-              margin-top:20px;
-              padding:14px 28px;
-              background:#0f766e;
-              color:white;
-              text-decoration:none;
-              border-radius:999px;
-              font-weight:bold;
-            "
-          >
-            Reset Password
-          </a>
-
-          <p style="margin-top:25px;">
-            This link will expire in 15 minutes.
-          </p>
-
-          <hr />
-
-          <p>
-            Eventora Team
-          </p>
-        </div>
-      `,
+                    <p style="margin-top:25px;">This link will expire in 15 minutes.</p>
+                    <hr />
+                    <p>Eventora Team</p>
+                </div>
+            `,
+        }).catch((error) => {
+            console.error("Forgot Password Email Error:", error.message);
         });
 
         res.status(200).json({
             success: true,
-            message:
-                "Password reset email sent successfully",
+            message: "Password reset email sent successfully",
         });
     } catch (error) {
-        console.error(
-            "Forgot Password Error:",
-            error
-        );
+        console.error("Forgot Password Error:", error);
 
         res.status(500).json({
             success: false,
@@ -274,16 +213,13 @@ const forgotPassword = async (req, res) => {
     }
 };
 
-// Reset Password
 const resetPassword = async (req, res) => {
     try {
         const { token } = req.params;
-
         const { password } = req.body;
 
         const user = await User.findOne({
             resetPasswordToken: token,
-
             resetPasswordExpire: {
                 $gt: Date.now(),
             },
@@ -292,42 +228,31 @@ const resetPassword = async (req, res) => {
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message:
-                    "Invalid or expired reset token",
+                message: "Invalid or expired reset token",
             });
         }
 
         if (password.length < 6) {
             return res.status(400).json({
                 success: false,
-                message:
-                    "Password must be at least 6 characters",
+                message: "Password must be at least 6 characters",
             });
         }
 
-        const hashedPassword = await bcrypt.hash(
-            password,
-            10
-        );
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         user.password = hashedPassword;
-
         user.resetPasswordToken = null;
-
         user.resetPasswordExpire = null;
 
         await user.save();
 
         res.status(200).json({
             success: true,
-            message:
-                "Password reset successfully",
+            message: "Password reset successfully",
         });
     } catch (error) {
-        console.error(
-            "Reset Password Error:",
-            error
-        );
+        console.error("Reset Password Error:", error);
 
         res.status(500).json({
             success: false,
@@ -336,12 +261,9 @@ const resetPassword = async (req, res) => {
     }
 };
 
-// Get Current User
 const getMe = async (req, res) => {
     try {
-        const user = await User.findById(
-            req.user.id
-        );
+        const user = await User.findById(req.user.id);
 
         if (!user) {
             return res.status(404).json({

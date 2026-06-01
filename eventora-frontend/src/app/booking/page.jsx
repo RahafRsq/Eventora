@@ -190,412 +190,412 @@ export default function BookingPage() {
         }
     }
 
-    if (!selectedPackage) return null;
+    if (!selectedPackage) {
+        return (
+            <main className="booking-page">
+                <Navbar />
 
-    return (
-        <main className="booking-page">
-            <Navbar />
+                <section className="booking-main-section">
+                    <Container>
+                        <Button
+                            className="back-booking-btn"
+                            onClick={() =>
+                                router.push("/")
+                            }
+                        >
+                            <FaArrowLeft />
+                        </Button>
 
-            <section className="booking-main-section">
-                <Container>
-                    <Button
-                        className="back-booking-btn"
-                        onClick={() =>
-                            router.push("/")
-                        }
-                    >
-                        <FaArrowLeft />
-                    </Button>
+                        <div className="booking-header booking-header-spaced">
+                            <p>
+                                Complete Your Reservation
+                            </p>
 
-                    <div className="booking-header booking-header-spaced">
-                        <p>
-                            Complete Your Reservation
-                        </p>
+                            <h1>
+                                Book Your Event
+                            </h1>
 
-                        <h1>
-                            Book Your Event
-                        </h1>
+                            <span>
+                                Fill in your event details
+                                and submit your booking
+                                request.
+                            </span>
+                        </div>
 
-                        <span>
-                            Fill in your event details
-                            and submit your booking
-                            request.
-                        </span>
-                    </div>
+                        <Row className="g-4 align-items-stretch booking-layout">
+                            <Col lg={7}>
+                                <Card className="booking-card booking-equal-card">
+                                    <h2>Event Details</h2>
 
-                    <Row className="g-4 align-items-stretch booking-layout">
-                        <Col lg={7}>
-                            <Card className="booking-card booking-equal-card">
-                                <h2>Event Details</h2>
-
-                                <form
-                                    className="booking-form"
-                                    onSubmit={handleSubmit}
-                                >
-                                    <label>
-                                        Event Type
-                                    </label>
-
-                                    <select
-                                        name="eventType"
-                                        value={
-                                            formData.eventType
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
+                                    <form
+                                        className="booking-form"
+                                        onSubmit={handleSubmit}
                                     >
-                                        <option value="">
-                                            Choose event type
-                                        </option>
-
-                                        <option value="Wedding">
-                                            Wedding
-                                        </option>
-
-                                        <option value="Birthday">
-                                            Birthday
-                                        </option>
-
-                                        <option value="Graduation">
-                                            Graduation
-                                        </option>
-
-                                        <option value="Corporate">
-                                            Corporate
-                                        </option>
-                                    </select>
-
-                                    <label>
-                                        Event Date
-                                    </label>
-
-                                    <input
-                                        type="date"
-                                        name="eventDate"
-                                        min={today}
-                                        value={
-                                            formData.eventDate
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
-                                    />
-
-                                    <label>
-                                        Event Time
-                                    </label>
-
-                                    <input
-                                        type="time"
-                                        name="eventTime"
-                                        value={
-                                            formData.eventTime
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
-                                    />
-
-                                    <label>
-                                        Event Location
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        name="eventLocation"
-                                        placeholder="Amman, Fairmont Hotel..."
-                                        value={
-                                            formData.eventLocation
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
-                                    />
-
-                                    <label>
-                                        Number of Guests
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        name="guestsCount"
-                                        min="1"
-                                        placeholder="120"
-                                        value={
-                                            formData.guestsCount
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
-                                    />
-
-                                    <label>
-                                        Phone Number
-                                    </label>
-
-                                    <input
-                                        type="tel"
-                                        name="phoneNumber"
-                                        pattern="07[0-9]{8}"
-                                        title="Please enter a valid Jordanian phone number"
-                                        placeholder="07XXXXXXXX"
-                                        value={
-                                            formData.phoneNumber
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
-                                    />
-
-                                    <label>
-                                        Payment Method
-                                    </label>
-
-                                    <div className="payment-options">
-                                        <label className="payment-option">
-                                            <input
-                                                type="radio"
-                                                name="paymentMethod"
-                                                value="Cash"
-                                                checked={
-                                                    formData.paymentMethod ===
-                                                    "Cash"
-                                                }
-                                                onChange={
-                                                    handleChange
-                                                }
-                                            />
-
-                                            <FaMoneyBillWave />
-
-                                            Cash
+                                        <label>
+                                            Event Type
                                         </label>
 
-                                        <label className="payment-option">
-                                            <input
-                                                type="radio"
-                                                name="paymentMethod"
-                                                value="Credit Card"
-                                                checked={
-                                                    formData.paymentMethod ===
-                                                    "Credit Card"
-                                                }
-                                                onChange={
-                                                    handleChange
-                                                }
-                                            />
+                                        <select
+                                            name="eventType"
+                                            value={
+                                                formData.eventType
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
+                                            required
+                                        >
+                                            <option value="">
+                                                Choose event type
+                                            </option>
 
-                                            <FaCreditCard />
+                                            <option value="Wedding">
+                                                Wedding
+                                            </option>
 
-                                            Credit Card
+                                            <option value="Birthday">
+                                                Birthday
+                                            </option>
+
+                                            <option value="Graduation">
+                                                Graduation
+                                            </option>
+
+                                            <option value="Corporate">
+                                                Corporate
+                                            </option>
+                                        </select>
+
+                                        <label>
+                                            Event Date
                                         </label>
-                                    </div>
 
-                                    {formData.paymentMethod ===
-                                        "Credit Card" && (
-                                            <>
-                                                <label>
-                                                    Card Number
-                                                </label>
+                                        <input
+                                            type="date"
+                                            name="eventDate"
+                                            min={today}
+                                            value={
+                                                formData.eventDate
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
+                                            required
+                                        />
 
+                                        <label>
+                                            Event Time
+                                        </label>
+
+                                        <input
+                                            type="time"
+                                            name="eventTime"
+                                            value={
+                                                formData.eventTime
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
+                                            required
+                                        />
+
+                                        <label>
+                                            Event Location
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="eventLocation"
+                                            placeholder="Amman, Fairmont Hotel..."
+                                            value={
+                                                formData.eventLocation
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
+                                            required
+                                        />
+
+                                        <label>
+                                            Number of Guests
+                                        </label>
+
+                                        <input
+                                            type="number"
+                                            name="guestsCount"
+                                            min="1"
+                                            placeholder="120"
+                                            value={
+                                                formData.guestsCount
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
+                                            required
+                                        />
+
+                                        <label>
+                                            Phone Number
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            name="phoneNumber"
+                                            pattern="07[0-9]{8}"
+                                            title="Please enter a valid Jordanian phone number"
+                                            placeholder="07XXXXXXXX"
+                                            value={
+                                                formData.phoneNumber
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
+                                            required
+                                        />
+
+                                        <label>
+                                            Payment Method
+                                        </label>
+
+                                        <div className="payment-options">
+                                            <label className="payment-option">
                                                 <input
-                                                    type="text"
-                                                    name="cardNumber"
-                                                    placeholder="1234 5678 9012 3456"
-                                                    value={
-                                                        formData.cardNumber
+                                                    type="radio"
+                                                    name="paymentMethod"
+                                                    value="Cash"
+                                                    checked={
+                                                        formData.paymentMethod ===
+                                                        "Cash"
                                                     }
                                                     onChange={
                                                         handleChange
                                                     }
                                                 />
 
-                                                <Row>
-                                                    <Col>
-                                                        <label>
-                                                            Expiry Date
-                                                        </label>
+                                                <FaMoneyBillWave />
 
-                                                        <input
-                                                            type="text"
-                                                            name="expiryDate"
-                                                            placeholder="MM/YY"
-                                                            value={
-                                                                formData.expiryDate
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                        />
-                                                    </Col>
+                                                Cash
+                                            </label>
 
-                                                    <Col>
-                                                        <label>
-                                                            CVV
-                                                        </label>
-
-                                                        <input
-                                                            type="password"
-                                                            name="cvv"
-                                                            placeholder="123"
-                                                            value={
-                                                                formData.cvv
-                                                            }
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                            </>
-                                        )}
-
-                                    <label>
-                                        Extra Notes
-                                    </label>
-
-                                    <textarea
-                                        name="notes"
-                                        placeholder="Tell us any special details..."
-                                        value={
-                                            formData.notes
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                    ></textarea>
-
-                                    <Button
-                                        className="book-btn"
-                                        type="submit"
-                                        disabled={
-                                            isSubmitting
-                                        }
-                                    >
-                                        {isSubmitting ? (
-                                            <>
-                                                <Spinner
-                                                    animation="border"
-                                                    size="sm"
-                                                    className="me-2"
+                                            <label className="payment-option">
+                                                <input
+                                                    type="radio"
+                                                    name="paymentMethod"
+                                                    value="Credit Card"
+                                                    checked={
+                                                        formData.paymentMethod ===
+                                                        "Credit Card"
+                                                    }
+                                                    onChange={
+                                                        handleChange
+                                                    }
                                                 />
 
-                                                Processing...
-                                            </>
-                                        ) : (
-                                            "Confirm Booking"
+                                                <FaCreditCard />
+
+                                                Credit Card
+                                            </label>
+                                        </div>
+
+                                        {formData.paymentMethod ===
+                                            "Credit Card" && (
+                                                <>
+                                                    <label>
+                                                        Card Number
+                                                    </label>
+
+                                                    <input
+                                                        type="text"
+                                                        name="cardNumber"
+                                                        placeholder="1234 5678 9012 3456"
+                                                        value={
+                                                            formData.cardNumber
+                                                        }
+                                                        onChange={
+                                                            handleChange
+                                                        }
+                                                    />
+
+                                                    <Row>
+                                                        <Col>
+                                                            <label>
+                                                                Expiry Date
+                                                            </label>
+
+                                                            <input
+                                                                type="text"
+                                                                name="expiryDate"
+                                                                placeholder="MM/YY"
+                                                                value={
+                                                                    formData.expiryDate
+                                                                }
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                            />
+                                                        </Col>
+
+                                                        <Col>
+                                                            <label>
+                                                                CVV
+                                                            </label>
+
+                                                            <input
+                                                                type="password"
+                                                                name="cvv"
+                                                                placeholder="123"
+                                                                value={
+                                                                    formData.cvv
+                                                                }
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                            />
+                                                        </Col>
+                                                    </Row>
+                                                </>
+                                            )}
+
+                                        <label>
+                                            Extra Notes
+                                        </label>
+
+                                        <textarea
+                                            name="notes"
+                                            placeholder="Tell us any special details..."
+                                            value={
+                                                formData.notes
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
+                                        ></textarea>
+
+                                        <Button
+                                            className="book-btn"
+                                            type="submit"
+                                            disabled={
+                                                isSubmitting
+                                            }
+                                        >
+                                            {isSubmitting ? (
+                                                <>
+                                                    <Spinner
+                                                        animation="border"
+                                                        size="sm"
+                                                        className="me-2"
+                                                    />
+
+                                                    Processing...
+                                                </>
+                                            ) : (
+                                                "Confirm Booking"
+                                            )}
+                                        </Button>
+                                    </form>
+                                </Card>
+                            </Col>
+
+                            <Col lg={5}>
+                                <Card className="booking-summary-card booking-equal-card">
+                                    <p className="summary-label">
+                                        Selected Package
+                                    </p>
+
+                                    <h2>
+                                        {selectedPackage.name}{" "}
+                                        Package
+                                    </h2>
+
+                                    <p className="summary-subtitle">
+                                        {
+                                            selectedPackage.subtitle
+                                        }
+                                    </p>
+
+                                    <div className="summary-price">
+                                        <span>JOD</span>
+
+                                        <strong>
+                                            {
+                                                selectedPackage.price
+                                            }
+                                        </strong>
+
+                                        <small>
+                                            {
+                                                selectedPackage.oldPrice
+                                            }
+                                        </small>
+                                    </div>
+
+                                    <p className="summary-discount">
+                                        {
+                                            selectedPackage.discount
+                                        }{" "}
+                                        OFF
+                                    </p>
+
+                                    <div className="summary-line"></div>
+
+                                    <ul className="summary-features">
+                                        {selectedPackage.features?.map(
+                                            (feature) => (
+                                                <li key={feature}>
+                                                    {feature}
+                                                </li>
+                                            )
                                         )}
-                                    </Button>
-                                </form>
-                            </Card>
-                        </Col>
+                                    </ul>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container>
+                </section>
 
-                        <Col lg={5}>
-                            <Card className="booking-summary-card booking-equal-card">
-                                <p className="summary-label">
-                                    Selected Package
-                                </p>
+                {showSuccess && (
+                    <div className="success-overlay">
+                        <div className="success-popup">
+                            <FaCheckCircle className="success-icon" />
 
-                                <h2>
-                                    {selectedPackage.name}{" "}
-                                    Package
-                                </h2>
+                            <h2>
+                                Booking Submitted
+                                Successfully
+                            </h2>
 
-                                <p className="summary-subtitle">
-                                    {
-                                        selectedPackage.subtitle
-                                    }
-                                </p>
+                            <p>
+                                Your reservation has
+                                been sent to the admin
+                                team.
+                            </p>
 
-                                <div className="summary-price">
-                                    <span>JOD</span>
-
-                                    <strong>
-                                        {
-                                            selectedPackage.price
-                                        }
-                                    </strong>
-
-                                    <small>
-                                        {
-                                            selectedPackage.oldPrice
-                                        }
-                                    </small>
-                                </div>
-
-                                <p className="summary-discount">
-                                    {
-                                        selectedPackage.discount
-                                    }{" "}
-                                    OFF
-                                </p>
-
-                                <div className="summary-line"></div>
-
-                                <ul className="summary-features">
-                                    {selectedPackage.features?.map(
-                                        (feature) => (
-                                            <li key={feature}>
-                                                {feature}
-                                            </li>
+                            <div className="success-actions">
+                                <Button
+                                    className="book-btn"
+                                    onClick={() =>
+                                        router.push(
+                                            "/my-bookings"
                                         )
-                                    )}
-                                </ul>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+                                    }
+                                >
+                                    View My Bookings
+                                </Button>
 
-            {showSuccess && (
-                <div className="success-overlay">
-                    <div className="success-popup">
-                        <FaCheckCircle className="success-icon" />
-
-                        <h2>
-                            Booking Submitted
-                            Successfully
-                        </h2>
-
-                        <p>
-                            Your reservation has
-                            been sent to the admin
-                            team.
-                        </p>
-
-                        <div className="success-actions">
-                            <Button
-                                className="book-btn"
-                                onClick={() =>
-                                    router.push(
-                                        "/my-bookings"
-                                    )
-                                }
-                            >
-                                View My Bookings
-                            </Button>
-
-                            <Button
-                                className="outline-success-btn"
-                                onClick={() =>
-                                    router.push("/")
-                                }
-                            >
-                                Back Home
-                            </Button>
+                                <Button
+                                    className="outline-success-btn"
+                                    onClick={() =>
+                                        router.push("/")
+                                    }
+                                >
+                                    Back Home
+                                </Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            <Footer />
-        </main>
-    );
+                <Footer />
+            </main>
+        );
+    }
 }

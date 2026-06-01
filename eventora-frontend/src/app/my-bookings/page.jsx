@@ -305,133 +305,135 @@ export default function MyBookingsPage() {
                         </Row>
                     ) : (
                         <Row className="g-4 my-bookings-list">
-                            {bookings.map((booking) => (
-                                <Col lg={11} className="mx-auto" key={booking._id}>
-                                    <Card className="my-booking-card">
-                                        <div className="my-booking-header-row">
-                                            <div>
-                                                <p>Selected Package</p>
+                            {bookings
+                                .filter((booking) => booking.status !== "Cancelled")
+                                .map((booking) => (
+                                    <Col lg={11} className="mx-auto" key={booking._id}>
+                                        <Card className="my-booking-card">
+                                            <div className="my-booking-header-row">
+                                                <div>
+                                                    <p>Selected Package</p>
 
-                                                <h2>{booking.package?.name} Package</h2>
+                                                    <h2>{booking.package?.name} Package</h2>
 
-                                                <span>{booking.package?.subtitle}</span>
+                                                    <span>{booking.package?.subtitle}</span>
+                                                </div>
+
+                                                <div className="my-booking-statuses">
+                                                    <div
+                                                        className={`my-status ${getStatusClass(
+                                                            booking.status
+                                                        )}`}
+                                                    >
+                                                        {getStatusIcon(booking.status)}
+                                                        <span>Booking: {booking.status}</span>
+                                                    </div>
+
+                                                    <div
+                                                        className={`my-status ${getPaymentClass(
+                                                            booking.paymentStatus
+                                                        )}`}
+                                                    >
+                                                        {getPaymentIcon(booking.paymentStatus)}
+                                                        <span>
+                                                            Payment: {booking.paymentStatus || "Pending"}
+                                                        </span>
+                                                    </div>
+
+                                                    {booking.status === "Pending" && (
+                                                        <div className="booking-action-buttons">
+                                                            <Button
+                                                                className="edit-booking-btn"
+                                                                onClick={() => openEditModal(booking)}
+                                                            >
+                                                                Edit Booking
+                                                            </Button>
+
+                                                            <Button
+                                                                className="cancel-booking-btn"
+                                                                onClick={() => cancelBooking(booking._id)}
+                                                                disabled={isCancelling === booking._id}
+                                                            >
+                                                                {isCancelling === booking._id
+                                                                    ? "Cancelling..."
+                                                                    : "Cancel Booking"}
+                                                            </Button>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
 
-                                            <div className="my-booking-statuses">
-                                                <div
-                                                    className={`my-status ${getStatusClass(
-                                                        booking.status
-                                                    )}`}
-                                                >
-                                                    {getStatusIcon(booking.status)}
-                                                    <span>Booking: {booking.status}</span>
+                                            <div className="my-booking-line"></div>
+
+                                            <div className="booking-countdown">
+                                                <FaCalendarAlt />
+
+                                                <span>{getCountdownText(booking.eventDate)}</span>
+                                            </div>
+
+                                            <div className="my-booking-details">
+                                                <div>
+                                                    <span>Event Type</span>
+                                                    <strong>{booking.eventType}</strong>
                                                 </div>
 
-                                                <div
-                                                    className={`my-status ${getPaymentClass(
-                                                        booking.paymentStatus
-                                                    )}`}
-                                                >
-                                                    {getPaymentIcon(booking.paymentStatus)}
-                                                    <span>
-                                                        Payment: {booking.paymentStatus || "Pending"}
-                                                    </span>
+                                                <div>
+                                                    <span>Event Date</span>
+                                                    <strong>
+                                                        {booking.eventDate
+                                                            ? new Date(booking.eventDate).toLocaleDateString()
+                                                            : ""}
+                                                    </strong>
                                                 </div>
 
-                                                {booking.status === "Pending" && (
-                                                    <div className="booking-action-buttons">
-                                                        <Button
-                                                            className="edit-booking-btn"
-                                                            onClick={() => openEditModal(booking)}
-                                                        >
-                                                            Edit Booking
-                                                        </Button>
+                                                <div>
+                                                    <span>Event Time</span>
+                                                    <strong>{booking.eventTime}</strong>
+                                                </div>
 
-                                                        <Button
-                                                            className="cancel-booking-btn"
-                                                            onClick={() => cancelBooking(booking._id)}
-                                                            disabled={isCancelling === booking._id}
-                                                        >
-                                                            {isCancelling === booking._id
-                                                                ? "Cancelling..."
-                                                                : "Cancel Booking"}
-                                                        </Button>
+                                                <div>
+                                                    <span>Guests</span>
+                                                    <strong>{booking.guestsCount}</strong>
+                                                </div>
+
+                                                <div>
+                                                    <span>Phone</span>
+                                                    <strong>{booking.phoneNumber}</strong>
+                                                </div>
+
+                                                <div>
+                                                    <span>Payment</span>
+                                                    <strong>
+                                                        {booking.paymentMethod === "Cash" ? (
+                                                            <FaMoneyBillWave />
+                                                        ) : (
+                                                            <FaCreditCard />
+                                                        )}{" "}
+                                                        {booking.paymentMethod || "Cash"}
+                                                    </strong>
+                                                </div>
+                                            </div>
+
+                                            <div className="booking-bottom-row">
+                                                <div className="booking-location-box">
+                                                    <span>Location</span>
+
+                                                    <strong>
+                                                        <FaMapMarkerAlt /> {booking.eventLocation}
+                                                    </strong>
+                                                </div>
+
+                                                {booking.notes && (
+                                                    <div className="my-booking-notes">
+                                                        <span>Extra Notes</span>
+
+                                                        <p>{booking.notes}</p>
                                                     </div>
                                                 )}
                                             </div>
-                                        </div>
-
-                                        <div className="my-booking-line"></div>
-
-                                        <div className="booking-countdown">
-                                            <FaCalendarAlt />
-
-                                            <span>{getCountdownText(booking.eventDate)}</span>
-                                        </div>
-
-                                        <div className="my-booking-details">
-                                            <div>
-                                                <span>Event Type</span>
-                                                <strong>{booking.eventType}</strong>
-                                            </div>
-
-                                            <div>
-                                                <span>Event Date</span>
-                                                <strong>
-                                                    {booking.eventDate
-                                                        ? new Date(booking.eventDate).toLocaleDateString()
-                                                        : ""}
-                                                </strong>
-                                            </div>
-
-                                            <div>
-                                                <span>Event Time</span>
-                                                <strong>{booking.eventTime}</strong>
-                                            </div>
-
-                                            <div>
-                                                <span>Guests</span>
-                                                <strong>{booking.guestsCount}</strong>
-                                            </div>
-
-                                            <div>
-                                                <span>Phone</span>
-                                                <strong>{booking.phoneNumber}</strong>
-                                            </div>
-
-                                            <div>
-                                                <span>Payment</span>
-                                                <strong>
-                                                    {booking.paymentMethod === "Cash" ? (
-                                                        <FaMoneyBillWave />
-                                                    ) : (
-                                                        <FaCreditCard />
-                                                    )}{" "}
-                                                    {booking.paymentMethod || "Cash"}
-                                                </strong>
-                                            </div>
-                                        </div>
-
-                                        <div className="booking-bottom-row">
-                                            <div className="booking-location-box">
-                                                <span>Location</span>
-
-                                                <strong>
-                                                    <FaMapMarkerAlt /> {booking.eventLocation}
-                                                </strong>
-                                            </div>
-
-                                            {booking.notes && (
-                                                <div className="my-booking-notes">
-                                                    <span>Extra Notes</span>
-
-                                                    <p>{booking.notes}</p>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </Card>
-                                </Col>
-                            ))}
+                                        </Card>
+                                    </Col>
+                                ))}
                         </Row>
                     )}
                 </Container>

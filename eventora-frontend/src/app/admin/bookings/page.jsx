@@ -26,7 +26,7 @@ export default function AdminBookingsPage() {
     const [statusFilter, setStatusFilter] = useState("All");
 
     const router = useRouter();
-
+    const searchParams = useSearchParams();
     useEffect(() => {
         const token = localStorage.getItem("token");
         const userData = localStorage.getItem("user");

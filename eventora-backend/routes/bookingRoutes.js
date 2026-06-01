@@ -6,6 +6,7 @@ const {
     getMyBookings,
     updateBookingStatus,
     updateBookingDetails,
+    cancelMyBooking,
 } = require("../controllers/bookingController");
 
 const {
@@ -21,7 +22,7 @@ router.get("/my-bookings", protect, getMyBookings);
 
 router.put("/edit/:id", protect, updateBookingDetails);
 
-router.put("/cancel/:id", protect, updateBookingDetails);
+router.put("/cancel/:id", protect, cancelMyBooking);
 
 router.get("/", protect, adminOnly, getBookings);
 

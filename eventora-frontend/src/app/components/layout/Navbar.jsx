@@ -39,6 +39,11 @@ export default function Navbar() {
         router.push("/login");
     }
 
+    function goToRegister() {
+        closeMenu();
+        router.push("/login?mode=register");
+    }
+
     function confirmLogout() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -101,7 +106,7 @@ export default function Navbar() {
                                     Login
                                 </Button>
 
-                                <Button className="signup-btn" onClick={goToLogin}>
+                                <Button className="signup-btn" onClick={goToRegister}>
                                     Sign Up
                                 </Button>
                             </>
@@ -163,7 +168,7 @@ export default function Navbar() {
                                 Login
                             </Button>
 
-                            <Button className="signup-btn" onClick={goToLogin}>
+                            <Button className="signup-btn" onClick={goToRegister}>
                                 Sign Up
                             </Button>
                         </>
