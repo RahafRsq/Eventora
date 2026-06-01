@@ -8,18 +8,27 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+transporter.verify((error) => {
+    if (error) {
+        console.error("EMAIL VERIFY ERROR:", error);
+    } else {
+        console.log("EMAIL SERVER READY");
+    }
+});
+
 const sendEmail = async ({ to, subject, html }) => {
     try {
-        await transporter.sendMail({
+        const info = await transporter.sendMail({
             from: `"Eventora" <${process.env.EMAIL_USER}>`,
             to,
             subject,
             html,
         });
 
-        console.log("Email sent successfully");
+        console.log("Email sent successfully:", info.messageId);
     } catch (error) {
-        console.error("Email sending failed:", error.message);
+        console.error("EMAIL SENDING ERROR:", error);
+        throw error;
     }
 };
 
