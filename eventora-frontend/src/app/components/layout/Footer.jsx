@@ -9,6 +9,7 @@ import {
     FaMapMarkerAlt,
 } from "react-icons/fa";
 
+
 export default function Footer() {
     return (
         <footer className="site-footer">
@@ -24,26 +25,54 @@ export default function Footer() {
                     </p>
 
                     <div className="social-icons">
-                        <span><FaInstagram /></span>
-                        <span><FaFacebookF /></span>
-                        <span><FaWhatsapp /></span>
+                        <span>
+                            <FaInstagram />
+                        </span>
+
+                        <span>
+                            <FaFacebookF />
+                        </span>
+
+                        <span>
+                            <FaWhatsapp />
+                        </span>
                     </div>
                 </div>
 
                 <div>
                     <h4>Pages</h4>
+
                     <a href="/#home">Home</a>
+
                     <a href="/#about">About</a>
-                    <a href="/#services">Services</a>
-                    <a href="/#packages">Packages</a>
+
+                    <a href="/#services">
+                        Services
+                    </a>
+
+                    <a href="/#packages">
+                        Packages
+                    </a>
                 </div>
 
                 <div>
                     <h4>Event Types</h4>
-                    <a href="/#about">Wedding</a>
-                    <a href="/#about">Birthday</a>
-                    <a href="/#about">Graduation</a>
-                    <a href="/#about">Corporate</a>
+
+                    <a href="/#about">
+                        Wedding
+                    </a>
+
+                    <a href="/#about">
+                        Birthday
+                    </a>
+
+                    <a href="/#about">
+                        Graduation
+                    </a>
+
+                    <a href="/#about">
+                        Corporate
+                    </a>
                 </div>
 
                 <div>
