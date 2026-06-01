@@ -127,7 +127,7 @@ export default function BookingPage() {
                 paymentMethod:
                     formData.paymentMethod,
 
-                totalPrice: selectedPackage.price,
+                totalPrice: selectedPackage?.price,
             };
 
             const response = await fetch(
