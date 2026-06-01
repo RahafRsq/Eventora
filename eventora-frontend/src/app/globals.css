@@ -4910,3 +4910,25 @@ body {
 .booking-main-section {
   padding-bottom: 120px;
 }
+
+
+.package-card {
+  padding-top: 48px !important;
+}
+
+.package-title-row {
+  align-items: flex-start !important;
+}
+
+.discount-pill {
+  min-width: 86px !important;
+  height: 54px !important;
+  padding: 0 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  font-size: 16px !important;
+  text-align: center !important;
+}
