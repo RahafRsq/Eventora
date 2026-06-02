@@ -2,6 +2,7 @@
 
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 import {
@@ -18,6 +19,7 @@ import Navbar from "./components/layout/Navbar";
 export default function Home() {
   const [packages, setPackages] = useState([]);
   const [selectedEventType, setSelectedEventType] = useState("Wedding");
+  const router = useRouter();
 
   const eventTypes = [
     { title: "Wedding", image: "/images/wedding.jpg" },
