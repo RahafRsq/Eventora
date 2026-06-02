@@ -1,26 +1,19 @@
-const { Resend } = require("resend");
+const sgMail = require("@sendgrid/mail");
 
-console.log("RESEND KEY EXISTS:", !!process.env.RESEND_API_KEY);
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendEmail = async ({ to, subject, html }) => {
     try {
-        const result = await resend.emails.send({
-            from: "Eventora <onboarding@resend.dev>",
+        await sgMail.send({
             to,
+            from: "rahafrsq719@hotmail.com",
             subject,
             html,
         });
 
-        if (result.error) {
-            console.error("Email sending failed:", result.error);
-            return;
-        }
-
-        console.log("Email sent successfully:", result.data.id);
+        console.log("Email sent successfully");
     } catch (error) {
-        console.error("Email sending failed:", error);
+        console.error("Email sending failed:", error.response?.body || error);
     }
 };
 
