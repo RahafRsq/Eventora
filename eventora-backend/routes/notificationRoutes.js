@@ -15,7 +15,6 @@ const {
 
 const router = express.Router();
 
-// User notifications
 router.get("/my", protect, getMyNotifications);
 
 router.put("/my/read-all", protect, markAllMyNotificationsAsRead);
@@ -35,7 +34,6 @@ router.put(
     markAllAdminNotificationsAsRead
 );
 
-// Mark single notification as read
 router.put("/:id/read", protect, markNotificationAsRead);
 
 module.exports = router;

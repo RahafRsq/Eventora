@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// Protect private routes
 const protect = async (req, res, next) => {
     try {
         let token;
@@ -42,7 +41,6 @@ const protect = async (req, res, next) => {
     }
 };
 
-// Admin only
 const adminOnly = (req, res, next) => {
     if (req.user && req.user.role === "admin") {
         next();

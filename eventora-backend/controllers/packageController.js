@@ -1,6 +1,5 @@
 const Package = require("../models/Package");
 
-// Get All Packages
 const getPackages = async (req, res) => {
     try {
         const packages = await Package.find({
@@ -25,7 +24,6 @@ const getPackages = async (req, res) => {
     }
 };
 
-// Get Featured Packages
 const getFeaturedPackages = async (req, res) => {
     try {
         const packages = await Package.find({
@@ -51,7 +49,6 @@ const getFeaturedPackages = async (req, res) => {
     }
 };
 
-// Get Single Package
 const getSinglePackage = async (req, res) => {
     try {
         const packageItem = await Package.findById(req.params.id);
@@ -77,7 +74,6 @@ const getSinglePackage = async (req, res) => {
     }
 };
 
-// Create Package
 const createPackage = async (req, res) => {
     try {
         const {
@@ -134,7 +130,6 @@ const createPackage = async (req, res) => {
     }
 };
 
-// Update Package
 const updatePackage = async (req, res) => {
     try {
         const packageItem = await Package.findById(req.params.id);
@@ -170,7 +165,6 @@ const updatePackage = async (req, res) => {
     }
 };
 
-// Delete Package
 const deletePackage = async (req, res) => {
     try {
         const packageItem = await Package.findById(req.params.id);
