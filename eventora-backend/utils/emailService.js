@@ -1,19 +1,30 @@
-const sgMail = require("@sendgrid/mail");
+const nodemailer = require("nodemailer");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+    connectionTimeout: 30000,
+    greetingTimeout: 30000,
+    socketTimeout: 30000,
+});
 
 const sendEmail = async ({ to, subject, html }) => {
     try {
-        await sgMail.send({
+        const info = await transporter.sendMail({
+            from: `"Eventora" <${process.env.EMAIL_USER}>`,
             to,
-            from: "rahafrsq719@hotmail.com",
             subject,
             html,
         });
 
-        console.log("Email sent successfully");
+        console.log("Email sent successfully:", info.messageId);
     } catch (error) {
-        console.error("Email sending failed:", error.response?.body || error);
+        console.error("Email sending failed:", error);
     }
 };
 
